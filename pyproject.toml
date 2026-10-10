@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bayeslab"
+version = "1.2.0"
+description = "Exact Bayesian network inference and decision-network utility analysis"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+reference = ["pgmpy==1.1.2"]
+browser-tests = ["playwright"]
+
+[project.scripts]
+bayeslab = "bayesnet.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["bayesnet*"]
+
+[tool.setuptools.package-data]
+bayesnet = ["examples/*.json", "web/*.html", "web/*.css", "web/*.js"]

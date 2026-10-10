@@ -1,0 +1,138 @@
+{
+  "name": "Why is the grass wet?",
+  "description": "Clouds influence rain and sprinkler use. Either rain or the sprinkler can wet the grass. Conditioning on wet grass reveals how competing explanations interact.",
+  "chance_nodes": [
+    {
+      "name": "Cloudy",
+      "states": [
+        "yes",
+        "no"
+      ],
+      "parents": [],
+      "cpt": [
+        {
+          "when": {},
+          "probabilities": {
+            "yes": 0.5,
+            "no": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sprinkler",
+      "states": [
+        "yes",
+        "no"
+      ],
+      "parents": [
+        "Cloudy"
+      ],
+      "cpt": [
+        {
+          "when": {
+            "Cloudy": "yes"
+          },
+          "probabilities": {
+            "yes": 0.1,
+            "no": 0.9
+          }
+        },
+        {
+          "when": {
+            "Cloudy": "no"
+          },
+          "probabilities": {
+            "yes": 0.5,
+            "no": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rain",
+      "states": [
+        "yes",
+        "no"
+      ],
+      "parents": [
+        "Cloudy"
+      ],
+      "cpt": [
+        {
+          "when": {
+            "Cloudy": "yes"
+          },
+          "probabilities": {
+            "yes": 0.8,
+            "no": 0.2
+          }
+        },
+        {
+          "when": {
+            "Cloudy": "no"
+          },
+          "probabilities": {
+            "yes": 0.2,
+            "no": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "name": "WetGrass",
+      "states": [
+        "yes",
+        "no"
+      ],
+      "parents": [
+        "Sprinkler",
+        "Rain"
+      ],
+      "cpt": [
+        {
+          "when": {
+            "Sprinkler": "yes",
+            "Rain": "yes"
+          },
+          "probabilities": {
+            "yes": 0.99,
+            "no": 0.01
+          }
+        },
+        {
+          "when": {
+            "Sprinkler": "yes",
+            "Rain": "no"
+          },
+          "probabilities": {
+            "yes": 0.9,
+            "no": 0.1
+          }
+        },
+        {
+          "when": {
+            "Sprinkler": "no",
+            "Rain": "yes"
+          },
+          "probabilities": {
+            "yes": 0.9,
+            "no": 0.1
+          }
+        },
+        {
+          "when": {
+            "Sprinkler": "no",
+            "Rain": "no"
+          },
+          "probabilities": {
+            "yes": 0,
+            "no": 1
+          }
+        }
+      ]
+    }
+  ],
+  "decision_nodes": [],
+  "utility_nodes": []
+}

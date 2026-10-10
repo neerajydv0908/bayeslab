@@ -1,0 +1,134 @@
+{
+  "name": "The umbrella decision",
+  "description": "A fictional teaching model: infer rain from the forecast and wet roads, then choose an umbrella using personal preferences. Only the forecast is available before choosing; taking an umbrella does not change the weather.",
+  "chance_nodes": [
+    {
+      "name": "Rain",
+      "states": [
+        "yes",
+        "no"
+      ],
+      "parents": [],
+      "cpt": [
+        {
+          "when": {},
+          "probabilities": {
+            "yes": 0.3,
+            "no": 0.7
+          }
+        }
+      ]
+    },
+    {
+      "name": "Forecast",
+      "states": [
+        "rainy",
+        "dry"
+      ],
+      "parents": [
+        "Rain"
+      ],
+      "cpt": [
+        {
+          "when": {
+            "Rain": "yes"
+          },
+          "probabilities": {
+            "rainy": 0.8,
+            "dry": 0.2
+          }
+        },
+        {
+          "when": {
+            "Rain": "no"
+          },
+          "probabilities": {
+            "rainy": 0.2,
+            "dry": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "name": "WetRoad",
+      "states": [
+        "yes",
+        "no"
+      ],
+      "parents": [
+        "Rain"
+      ],
+      "cpt": [
+        {
+          "when": {
+            "Rain": "yes"
+          },
+          "probabilities": {
+            "yes": 0.9,
+            "no": 0.1
+          }
+        },
+        {
+          "when": {
+            "Rain": "no"
+          },
+          "probabilities": {
+            "yes": 0.1,
+            "no": 0.9
+          }
+        }
+      ]
+    }
+  ],
+  "decision_nodes": [
+    {
+      "name": "Umbrella",
+      "states": [
+        "take",
+        "leave"
+      ],
+      "information": [
+        "Forecast"
+      ]
+    }
+  ],
+  "utility_nodes": [
+    {
+      "name": "Comfort",
+      "parents": [
+        "Rain",
+        "Umbrella"
+      ],
+      "table": [
+        {
+          "when": {
+            "Rain": "yes",
+            "Umbrella": "take"
+          },
+          "value": 8
+        },
+        {
+          "when": {
+            "Rain": "yes",
+            "Umbrella": "leave"
+          },
+          "value": -20
+        },
+        {
+          "when": {
+            "Rain": "no",
+            "Umbrella": "take"
+          },
+          "value": -2
+        },
+        {
+          "when": {
+            "Rain": "no",
+            "Umbrella": "leave"
+          },
+          "value": 5
+        }
+      ]
+    }
+  ]
+}

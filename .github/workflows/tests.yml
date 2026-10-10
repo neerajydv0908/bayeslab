@@ -1,0 +1,49 @@
+# Runs on every push and pull request once this project is on GitHub.
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  core:
+    name: Standard-library tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run tests (optional pgmpy and browser checks are skipped)
+        run: python -m unittest discover -v
+      - name: Worked example
+        run: python bayesian_decision_starter.py
+
+  reference:
+    name: Independent pgmpy reference
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements-reference.txt
+      - run: python -m unittest tests.test_umbrella -v
+      - run: python -m experiments.compare_inference --repeats 1
+
+  browser:
+    name: Browser interface
+    runs-on: ubuntu-latest
+    env:
+      BAYESLAB_REQUIRE_BROWSER: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install playwright
+      - run: python -m playwright install --with-deps chromium
+      - run: python -m unittest tests.test_browser -v

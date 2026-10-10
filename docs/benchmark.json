@@ -1,0 +1,75 @@
+{
+  "generated_utc": "2026-10-09T14:16:11.925723+00:00",
+  "python": "3.10.12",
+  "platform": "Linux-6.8.0-138-generic-aarch64-with-glibc2.35",
+  "processor": "aarch64",
+  "pgmpy": "1.1.2",
+  "probability_queries_checked": 278,
+  "maximum_absolute_difference": 2.220446049250313e-16,
+  "utility_checks": [
+    {
+      "forecast": "rainy",
+      "action": "take",
+      "expected_utility": 4.315789473684211
+    },
+    {
+      "forecast": "rainy",
+      "action": "leave",
+      "expected_utility": -10.789473684210527
+    },
+    {
+      "forecast": "dry",
+      "action": "take",
+      "expected_utility": -1.032258064516129
+    },
+    {
+      "forecast": "dry",
+      "action": "leave",
+      "expected_utility": 2.5806451612903225
+    }
+  ],
+  "repetitions": 25,
+  "timings": [
+    {
+      "nodes": 4,
+      "worlds": 16,
+      "probability": 0.6080000000000001,
+      "median_ms": {
+        "enumeration": 0.02308399780304171,
+        "elimination": 0.046041001041885465,
+        "pgmpy": 0.23954200150910765
+      }
+    },
+    {
+      "nodes": 8,
+      "worlds": 256,
+      "probability": 0.5139968,
+      "median_ms": {
+        "enumeration": 0.13620800018543378,
+        "elimination": 0.12241700096637942,
+        "pgmpy": 0.3520840000419412
+      }
+    },
+    {
+      "nodes": 12,
+      "worlds": 4096,
+      "probability": 0.5018139852800004,
+      "median_ms": {
+        "enumeration": 1.7617499979678541,
+        "elimination": 0.22362500021699816,
+        "pgmpy": 0.4827089978789445
+      }
+    },
+    {
+      "nodes": 16,
+      "worlds": 65536,
+      "probability": 0.5002350924922881,
+      "median_ms": {
+        "enumeration": 28.036583000357496,
+        "elimination": 0.33795899798860773,
+        "pgmpy": 0.633333002042491
+      }
+    }
+  ],
+  "methodology": "Median of repeated warm queries, excluding imports and model construction. Binary chains have low treewidth and favor elimination; timings are not a general speed guarantee."
+}

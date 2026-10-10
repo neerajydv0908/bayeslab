@@ -1,0 +1,16 @@
+# Deploy BayesLab on Render's free plan: push this folder to GitHub, then in the
+# Render dashboard choose New > Blueprint and select the repository.
+# Free web services sleep after 15 minutes without traffic and take about a
+# minute to wake up on the next visit.
+services:
+  - type: web
+    name: bayeslab
+    runtime: python
+    plan: free
+    # The app uses only the Python standard library, so nothing is installed.
+    buildCommand: pip install -r requirements.txt
+    # --public listens on Render's $PORT on all interfaces, with a 10-second
+    # limit per calculation and two calculations at a time.
+    startCommand: python -m bayesnet serve --public
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit

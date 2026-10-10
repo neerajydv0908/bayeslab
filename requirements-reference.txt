@@ -1,0 +1,2 @@
+# Optional; requires Python >=3.10. Not needed to run the application.
+pgmpy==1.1.2
